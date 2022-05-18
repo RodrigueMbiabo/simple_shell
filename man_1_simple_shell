@@ -1,101 +1,89 @@
-.TH SIMPLE_SHELL 1 "30 October 2021" "1.0" "custom man page"
+.TH hsh 1 "MAY 18, 2022" "1.0" "hsh General Commands Manual"
+
 .SH NAME
-.B Simple Shell
-- command language interpreter
+
+.B simple_shell - hsh
+- command line interpreter or shell
+
+
 .SH SYNOPSIS
-.B Simple Shell
+
+.B  ./hsh
+.I (no options yet)
+
+
+
 .SH DESCRIPTION
-Simple shell is one version of a command language interpreter that executes commands read from the standard input. It's functionality is limited to certain shell builtin functions found in the environmental variable
-.I PATH.
-It does not yet handle piping, redirection, pattern matching, variable expansions, and more extra functions.
-.SS Invocation
-An
-.I interactive
-simple shell can be invoked by typing ./simple_shell. Meanwhile, a
-.I non-interactive
-simple shell can also be invoked via a pipe (e.g. echo "/bin/ls" | ./simple_shell).
-.SS Command Execution
-After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
-.sp
-If the command name contains no slashes, the shell attempts to locate it. If there exists a shell function by that name that function is invoked. If the name does not match a function, the shell searches for it in the list of shell builtins. If a match is found, that builtin is invoked.
-.sp
-If the name is neither a shell function nor a builtin, and contains no slashes, the simple shell searches each element of the environmental variable PATH for a directory containing an executable file by that name. If the search is unsuccessful, the simple shell prints an error message "Error: File or description not found."
-.SS Sample Functions
-.sp
-echo
-.I [arguments]
-      prints to standard output the argument(s) given and prints a newline
-.sp
-ls
-.I [[flags]...[arguments]]
-      lists files in the current directory according to the flags given by user
-.sp
-pwd
-      prints working directories
-.sp
-whereis
-.I [command]
-      prints to standard output which directory the function or shell builtin can be found
-.SS Shell Builtin Commands
-.sp
-cd
-      changes directory and updates environmental variables OLDPWD and PWD
-.sp
-env
-      prints environmental variables
-.sp
-exit
-      exits out of simple shell and returns to user's original shell
-.sp
-setenv
-      creates non-existing or modifies existing environmental variable within shell session
-.sp
-unsetenv
-      removes existing environmental variable within shell session
-.SH EXAMPLE
-To
-.I invoke
-simple shell:
-.sp
+
+simple_shell is a command line interpreter, or shell, in the tradition of the first Unix shell written by Ken Thompson. This shell is intentionally minimalistic, yet includes the basic functionality of a traditional Unix-like command line interface. simple_shell is desgined to run on the linux environment.
+
+
+.SH OVERVIEW
+
+Reading from either the terminal or files, simple_shell interprets and executes commands.
+
+
+.SH INVOCATION
+
+Compile simple_shell with the GNU Compiler Collection, preferably using gcc plus the below specified flags, as per this example (note the use of the * wildcard which enables all related .c files to be compiled concurrently):
+.P
 .RS
-(your_terminal)$ ./simple_shell
+.B $ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+.P
 .RE
+simple_shell can be run in interactive mode by entering the below command on the command line followd by "enter." Note that the prompt ('$') will appear and you will then be in interactive mode and able to enter commands followed by "enter." 
+.P
 .RS
-.I $
+.B $ ./hsh
+.P
 .RE
-.sp
-Sample Usage:
-.sp
+simple_shell can be run in non-interactive mode through the use of shell scripts. This can involve the use of piping ('|'):
+.P
 .RS
-.I $
-echo "This is pretty cool!"
-.RE
+.B echo 'pwd' | ./hsh
+
+.SH EXECUTABLES
+
+Example of executables:
+.IP
+.br
+.\&
 .RS
-.I This is pretty cool!
-.RE
-.RS
-.I $
-ls -l /tmp
-.RE
-.RS
-.I total 4
-.RE
-.RS
-.I drwx------ 2 vagrant vagrant 4096 Oct 30 20:22 ssh-xTKqci
-.RE
-.sp
-To leave simple shell and return to your terminal:
-.sp
-.RS
-.I $
-exit
-.RE
-.RS
-(your_terminal)$
-.RE
+\&$ echo "Example of executables"
+.br
+\&"Example of executables"
+.br
+\&$
+
+
+.SH BUILTINS
+
+The following builtin commands are supported:
+
+.IT
+.B env
+- prints the environment variables
+
+.B exit
+- exits the program
+
+.B setenv
+- sets the environment
+
+.B unsetenv
+- removes elements from the environment
+
+
+
 .SH BUGS
-Bugs...
+No known bugs at this writing (May 18, 2022).
+Please report any issues to the authors.
+
+.SH AUTHOR
+
+Yonga  Yonga gaelle Manuela<yongagaellemanuela@gmail.com>
+
+Mamudou Bojang
+
 .SH SEE ALSO
-.I bash(1), sh(1), ksh(1), csh(1)
-.SH AUTHORS
-Herbert Olinga, Adewole SHOBANKE
+sh
