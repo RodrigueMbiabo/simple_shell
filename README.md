@@ -28,4 +28,5 @@ man -l man_1_simple_shell
 ## Authors
 
 * Timothée Richard [@TrakyRichard](https://github.com/TrakyRichard)
+* Timothée Richard [@TrakyRichard](https://github.com/TrakyRichard)
 ```
